@@ -1,0 +1,102 @@
+h5.header {
+    padding: 0;
+    margin: 0;
+}
+
+.headerContainer {
+    padding: 4px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    background-color: darkblue;
+    cursor: move;
+}
+
+.windowButtons {
+    margin-left: auto;
+}
+
+button.window {
+    background-color: #c0c0c0;
+    border: outset;
+    border-width: 2px;
+    margin-left: 2px
+}
+
+button:hover.window {
+    background-color: #8a8a8a;
+}
+
+.formContainer {
+    background-color: #c0c0c0;
+    max-width: 100%;
+    min-width: 350px;
+    position: relative;
+    z-index: 1;
+    border-style: outset;
+    border-color: #c0c0c0;
+    margin: 15px 0 15px 0;
+    /* border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
+}
+
+.formContainerMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formGroup {
+    position: absolute;
+    display: block;
+    background-color: #c0c0c0;
+}
+
+.textAreaWrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: auto;
+}
+
+.textArea {
+    max-width: 400px;
+    min-width: 400px;
+    min-height: 200px;
+    max-height: 200px;
+    background-color: white;
+    padding: 5px 5px 5px 5px;
+    border: inset;
+    border-color: #c0c0c0;
+    overflow-y: auto;
+
+}
+
+
+.inputArea {
+    width: 100%;
+    border: inset;
+    border-color: #c0c0c0;
+    resize: none;
+}
+
+.sendContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+}
+
+button.send {
+    margin: 0 5px 5px 0;
+    background-color: #c0c0c0;
+    border-color: rgb(185, 185, 185);
+}
+
+button:hover.send {
+    background-color: #8a8a8a;
+}
+
+.radios {
+    margin-right: auto;
+}

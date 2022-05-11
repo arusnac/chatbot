@@ -1,0 +1,17 @@
+.chatHistoryInnerContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    background-color: #ffffff;
+    border-style: inset;
+    border-width: 2px;
+    overflow-y: auto;
+    max-height: 450px;
+    padding-left: 10px;
+}
+
+.chatHistoryContainer {
+    border: solid;
+    border-width: 10px;
+    border-color: #c0c0c0;
+}
