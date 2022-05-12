@@ -4,7 +4,7 @@ import styles from './ChatHistory.module.css';
 import headerStyles from './Main.module.css';
 import Draggable from 'react-draggable';
 
-const ChatHistory = ({ outputs }) => {
+const ChatHistory = ({ outputs }, props) => {
     const messagesStartRef = useRef(null);
     const nodeRef = React.useRef(null);
 
@@ -29,20 +29,16 @@ const ChatHistory = ({ outputs }) => {
                                 <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
                             </svg>
                         </div> <h6 className={headerStyles.header}>  Chat History - Newest to Oldest</h6>
-                        <div className={headerStyles.windowButtons}>
-                            <button className={headerStyles.window}>_</button>
-                            <button className={headerStyles.window}>x</button>
-                        </div>
                     </div>
                     <div >
 
                         <div className={styles.chatHistoryInnerContainer}>
 
-                            {outputs.map((output) => {
+                            {outputs.map((output, index) => {
                                 return (
-                                    <div key={output.input + output.ouput}>
-                                        <p key={output.input} style={{ color: 'blue' }}>{output.input}</p>
-                                        <p key={output.ouput} style={{ color: 'red' }}>{output.output}</p>
+                                    <div key={index}>
+                                        <p style={{ color: 'blue' }}>{output.input}</p>
+                                        <p style={{ color: 'red' }}>{output.output}</p>
                                     </div>
                                 )
                             })}

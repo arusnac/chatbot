@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import styles from './Info.module.css';
 
 //Card with instructions for the application plus additional information
-const Info = (props) => {
+const Info = () => {
 
     return (
         <div className={styles.infoContainer}>
@@ -32,7 +32,13 @@ const Info = (props) => {
                         can be viewed below. You'll notice a similar theme.
                     </p>
 
-                    <Card.Link href="https://arusnac.github.io/" target="_blank" rel="noreferrer noopener">Portfolio Site</Card.Link>
+                    <Card.Link
+                        href="https://arusnac.github.io/"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                    >
+                        Portfolio Site
+                    </Card.Link>
 
                 </Card.Body>
             </Card>

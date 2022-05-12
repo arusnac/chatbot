@@ -72,6 +72,9 @@ button:hover.window {
 
 }
 
+.selectBox {
+    padding-right: 5px;
+}
 
 .inputArea {
     width: 100%;

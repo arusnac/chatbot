@@ -10,6 +10,7 @@ import Info from './Info'
 const { Configuration, OpenAIApi } = require('openai');
 
 const Main = (props) => {
+    //Ref used for Draggable
     const nodeRef = React.useRef(null);
     //outputs holds the entire chat conversation in an array of objects
     const [outputs, setOutputs] = useState([{}]);
@@ -21,10 +22,18 @@ const Main = (props) => {
     const [showError, setShowError] = useState(false);
     //Takes a string from the verifyInput function to display and appropriate message
     const [errorMessage, setErrorMessage] = useState('');
-    const [showInfo, setShowInfo] = useState(false)
+    //Handle the info window state
+    const [showInfo, setShowInfo] = useState(false);
+    //Handle the select box state
+    const [selectValue, setSelectValue] = useState('default')
 
     //ref to keep the chat window at the bottom
     const messagesEndRef = useRef(null);
+
+    const handleSelect = (e) => {
+        setSelectValue(e.target.value);
+        setInputText(e.target.value);
+    }
 
     //Used in conjuction with the resetInput function to clear 
     //the text area after send is pressed
@@ -42,6 +51,7 @@ const Main = (props) => {
         setShowHistory(!showHistory)
     }
 
+    //Toggles info component
     const handleInfo = () => {
         setShowInfo(!showInfo);
     }
@@ -51,7 +61,6 @@ const Main = (props) => {
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     };
-
 
     useEffect(() => {
         scrollToBottom()
@@ -71,6 +80,22 @@ const Main = (props) => {
         }
         else {
             setShowError(false);
+        }
+    }
+
+    //Removes automatically added prefixes for cleaner output
+    const cleanText = (aiOutput) => {
+        if (aiOutput.includes('Me:')) {
+            aiOutput = aiOutput.replace('Me:', '')
+        }
+        else if (aiOutput.includes('The other person responds with:')) {
+            aiOutput = aiOutput.replace('The other person responds with:', '')
+        }
+        else if (aiOutput.includes('Them:')) {
+            aiOutput = aiOutput.replace('Them:', '')
+        }
+        else {
+            return aiOutput
         }
     }
 
@@ -101,14 +126,13 @@ const Main = (props) => {
         })
             .then((response) => {
                 let aiOutput = '';
-                if (response.data.choices[0].text.includes('Me:')) {
-                    aiOutput = response.data.choices[0].text.replace('Me:', '')
-                } else { aiOutput = response.data.choices[0].text }
+                aiOutput = cleanText(response.data.choices[0].text);
+
+
                 setOutputs([...outputs, { input: `You: ${formDataObj.textMessage}`, output: `Friend: ${aiOutput}` }])
                 resetInput();
             });
     }
-
 
     return (
         <div>
@@ -140,9 +164,9 @@ const Main = (props) => {
                                     <div>
                                         <div className={styles.textAreaWrapper}>
                                             <div className={styles.textArea}>
-                                                {outputs.map((output) => {
+                                                {outputs.map((output, index) => {
                                                     return (
-                                                        <div key={output.input + output.output}>
+                                                        <div key={index}>
                                                             <p style={{ color: 'blue' }}>{output.input}</p>
                                                             <p style={{ color: 'red' }}>{output.output}</p>
                                                         </div>
@@ -152,7 +176,7 @@ const Main = (props) => {
                                             </div>
                                         </div>
                                         <textarea
-                                            placeholder='Send a question you might ask a friend! The more specific the better.'
+                                            placeholder='Type a question you might ask a friend here! The more specific the better.'
                                             rows={3}
                                             name='textMessage'
                                             value={inputText}
@@ -161,18 +185,31 @@ const Main = (props) => {
                                         />
                                         <div className={styles.sendContainer}>
                                             <button type="submit" className={styles.send}> Send</button>
+                                            <div className={styles.selectBox}>
+                                                <select defaultValue={selectValue} onChange={handleSelect}>
+                                                    <option value="default" disabled hidden>Predefined Messages</option>
+                                                    <option value="Hello, how are you?">Hello, how are you?</option>
+                                                    <option value="What are you up to today?">What are you doing?</option>
+                                                    <option value="What do you like to do?">What do you like to do?</option>
+                                                    <option value="What's you favorite movie?">Favorite movie?</option>
+                                                    <option value="Read any new books?">Read any new books?</option>
+                                                </select>
+                                            </div>
                                             <div className={styles.radios}>
                                                 <input type="checkbox"
                                                     className={styles.send}
                                                     value='Show Chat History' onClick={showHistoryWindow} />
-                                                <label>&nbsp; Show Chat History</label>
+                                                <label>&nbsp; Log</label>
                                             </div>
                                             <div className={styles.radios}>
+
                                                 <input type="checkbox"
                                                     className={styles.send}
                                                     value='Show Chat History' onClick={handleInfo} />
                                                 <label >&nbsp; Info</label>
+
                                             </div>
+
                                         </div>
                                     </div>
                                 </form>
