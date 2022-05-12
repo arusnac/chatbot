@@ -17,7 +17,7 @@ const Main = (props) => {
     //Maintains the text input by the user and clears after the send buttons is pressed
     const [inputText, setInputText] = useState('');
     //Handles the state of the chat history window
-    const [showHistory, setShowHistory] = useState(false);
+    const [showHistory, setShowHistory] = useState(true);
     //Handles the state of the error message
     const [showError, setShowError] = useState(false);
     //Takes a string from the verifyInput function to display and appropriate message
@@ -198,7 +198,7 @@ const Main = (props) => {
                                             <div className={styles.radios}>
                                                 <input type="checkbox"
                                                     className={styles.send}
-                                                    value='Show Chat History' onClick={showHistoryWindow} />
+                                                    value='Show Chat History' defaultChecked='true' onClick={showHistoryWindow} />
                                                 <label>&nbsp; Log</label>
                                             </div>
                                             <div className={styles.radios}>
